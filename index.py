@@ -1,23 +1,35 @@
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 # Rota para a página inicial
 @app.route('/')
 def home():
-    htmlparams = {
+    # Passa parâmetros para o template
+    # CSS e JS são opcionais
+    page = {
         'title': 'Página inicial',
-        'css': '/static/css/home.css',
-        'js': '/static/js/home.js'
+        'css': 'home.css',
+        'js': 'home.js'
     }
-    return 'Hello World!'
+    return render_template('home.html', page=page)
 
+@app.route('/contacts')
+def contacts():
+        page = {
+        'title': 'Contatos',
+        'css': 'home.css'
+    }
+        return render_template('contacts.html', page=page)
 
-@app.route('/contact')
-def contact():
-    return 'Fale comigo!'
-
+@app.route('/about')
+def about():
+     page = {
+          'title': 'Sobre nós',
+          'css': 'home.css'
+     }
+     return render_template('about.html', page=page)
 
 if __name__ == '__main__':
     app.run(debug=True)
