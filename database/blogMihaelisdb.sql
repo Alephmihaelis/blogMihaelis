@@ -348,3 +348,35 @@ INSERT INTO article (
 </html>',
     '7'
 );
+
+INSERT INTO comment (
+        com_article,
+        com_author_name,
+        com_author_email,
+        com_comment
+) VALUES (
+    '1',
+    'Setembrino Brino Castelo-Branco',
+    'setem@brino.com',
+    'Este artigo é muito bom! :D'
+), (
+    '1',
+    'Matheus Arroba',
+    'matheusarroba@arroba.com',
+    'Este artigo é ruim demais. Você é bobão'
+), (
+    '1',
+    'João Bobo',
+    'joao@bobo.com',
+    'Este artigo é ruim demais. Você é bobão'
+), (
+    '2',
+    'Thiago Doido',
+    'thiago@doido.com',
+    'Vou ler esse artigo depois.'
+), (
+    '3',
+    'Joãozinho',
+    'joao@zinho.com',
+    'officium tuum est populos regere, et soberbos vincere'
+);
