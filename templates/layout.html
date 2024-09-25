@@ -9,11 +9,19 @@
     {% if page.css %}
     <link rel="stylesheet" href="/static/css/{{page.css}}">
     {% endif %}
-    <title>{{ page.title }}</title>
+
+    {% if page.title == '' %}
+    <title>{{ page.site.NAME }}</title>
+    {% else %}
+    <title>{{ page.site.NAME }} - {{ page.title }}</title>
+    {% endif %}
 </head>
 <body>
 
-    <header>Logo e Cabeçalho</header>
+    <header>
+        <img src="{{ page.site.LOGO }}" alt="Logotipo de {{ page.site.NAME }}">
+        <h1>{{ page.site.NAME }}</h1>
+    </header>
 
     <nav>
         <a href="/">Início</a>
@@ -22,12 +30,16 @@
     </nav>
 
     <main>
-        <article>{% block article %}{% endblock %}</article>
-        <aside>{% block aside %}{% endblock %}</aside>
+        <article>
+            {% block article %}{% endblock %}
+        </article>
+        <aside>
+            {% block aside %}{% endblock %}
+        </aside>
     </main>
 
 
-    <footer>© 2024</footer>
+    <footer> {{ page.site.OWNER }} </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/static/js/layout.js"></script>

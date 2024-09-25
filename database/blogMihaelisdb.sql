@@ -28,6 +28,7 @@ CREATE DATABASE blogMihaelis
         sta_email VARCHAR(255) NOT NULL,
         sta_password VARCHAR(63) NOT NULL,
         sta_birth DATE NOT NULL,
+        sta_image VARCHAR(255) NOT NULL,
         sta_description VARCHAR(255),
         sta_type ENUM('moderator', 'author', 'admin') DEFAULT 'moderator',
         sta_status ENUM('on', 'off', 'del') DEFAULT 'on'
@@ -77,6 +78,7 @@ INSERT INTO staff (
         sta_email,
         sta_password,
         sta_birth,
+        sta_image,
         sta_description,
         sta_type
 ) VALUES (
@@ -84,6 +86,7 @@ INSERT INTO staff (
     'beltrao@fulano.com',
     SHA1('Senha123456'),
     '2000-03-27',
+    'https://randomuser.me/api/portraits/men/85.jpg',
     'Programador, escultor, pintor, preparador e enrolador',
     'admin'
 ), (
@@ -91,6 +94,7 @@ INSERT INTO staff (
     'mari@creuza.com',
     SHA1('Senha123456'),
     '1999-08-14',
+    'https://randomuser.me/api/portraits/women/20.jpg',
     'Programadora, arrumadora, doida',
     'author'
 ), (
@@ -98,6 +102,7 @@ INSERT INTO staff (
     'ana@exemplo.com',
     SHA1('Senha123456'),
     '1990-02-14',
+    'https://randomuser.me/api/portraits/women/21.jpg',
     'Escritora, blogueira',
     'author'
 ), (
@@ -105,6 +110,7 @@ INSERT INTO staff (
     'ricardo@exemplo.com',
     SHA1('Senha123456'),
     '1985-11-23',
+    'https://randomuser.me/api/portraits/men/0.jpg',
     'Moderador, gamer',
     'moderator'
 ), (
@@ -112,6 +118,7 @@ INSERT INTO staff (
     'laura@exemplo.com',
     SHA1('Senha123456'),
     '1998-06-09',
+    'https://randomuser.me/api/portraits/women/22.jpg',
     'Artista, dançarina',
     'author'
 ), (
@@ -119,6 +126,7 @@ INSERT INTO staff (
     'felipe@exemplo.com',
     SHA1('Senha123456'),
     '1983-04-30',
+    'https://randomuser.me/api/portraits/men/28.jpg',
     'Editor, crítico de cinema',
     'moderator'
 ), (
@@ -126,6 +134,7 @@ INSERT INTO staff (
     'juliana@exemplo.com',
     SHA1('Senha123456'),
     '1995-08-21',
+    'https://randomuser.me/api/portraits/women/23.jpg',
     'Fotógrafa, viajante',
     'author'
 );
