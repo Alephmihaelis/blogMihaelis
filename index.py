@@ -46,9 +46,11 @@ def about():
      page = {
           'site': SITE,
           'title': 'Sobre nós',
-          'css': 'about.css'
+          'css': 'about.css',
+          'js': 'about.js'
      }
      return render_template('about.html', page=page)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
