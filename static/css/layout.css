@@ -99,3 +99,7 @@ body {
     color: white;
     padding: 1rem;
 }
+
+.justify {
+    text-align: justify;
+}

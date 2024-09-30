@@ -24,11 +24,11 @@ def home():
     toPage = {
         # Título da página → <title></title>
         'site': SITE,
-        'title': '',
+        'title': 'Página inicial',
         'css': 'home.css',  # Folhas de estilo desta página (opcional)
         'js': 'home.js',  # JavaScript desta página (opcional)
         # Outras chaves usadas pela página
-        'coisas': ('casa', 'carro', 'moto', 'peteca')
+        'coisas': ('Casa', 'Carro', 'Moto', 'Peteca')
     }
 
     # Renderiza template passando a variável local `toPage`
