@@ -72,7 +72,26 @@ def home():
 
 @app.route('/view/<artid>') # Rota para a página que exibe o artigo completo
 def view(artid):
-    return artid
+
+    sql = '''
+    SELECT art_id, art_title, art_resume, art_thumbnail
+    FROM article
+    WHERE art_status = 'on'
+    AND art_date <= NOW()
+    ORDER BY art_id;
+        '''
+    
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute(sql)
+    articles = cur.fetchall()
+    cur.close()
+
+    toPage = {
+        'site': SITE,
+        'title': '',
+        'css': 'view.css'
+    }
+    return render_template('view.html', page=toPage)
 
 
 @app.route('/contacts')  # Rota para a página de contatos → /contacts
