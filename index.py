@@ -70,6 +70,10 @@ def home():
     # Renderiza template passando a variável local `toPage` para o template como `page`.
     return render_template('home.html', page=toPage)
 
+@app.route('/view/<artid>') # Rota para a página que exibe o artigo completo
+def view(artid):
+    return artid
+
 
 @app.route('/contacts')  # Rota para a página de contatos → /contacts
 def contacts():
@@ -92,6 +96,7 @@ def about():
     }
 
     return render_template('about.html', page=toPage)
+
 
 
 if __name__ == '__main__':
