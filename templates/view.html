@@ -1,7 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block article %}
+<h2>{{ page.article['art_title'] }}</h2>
+<div class="author-date">
+    Por {{ page.article['sta_name'] }}
+    <span> em {{ page.article['art_datebr'] }} </span>
+</div>
+
+{{ page.article['art_content'] | safe }} <!-- | safe serve para renderizar a tag da variável HTML, assim ela não aparece -->
 {% endblock %}
 
 {% block aside %}
+
+<p>
+    <img src="{{ page.article['sta_image'] }}" alt="{{ page.article['sta_name'] }}">
+</p>
+<p>{{ page.article['sta_name'] }}</p>
+<p>{{ page.article['sta_description'] }}</p>
+<p>{{ page.article['sta_type'] }}</p>
+
 {% endblock %}

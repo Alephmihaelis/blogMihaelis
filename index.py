@@ -73,24 +73,44 @@ def home():
 @app.route('/view/<artid>') # Rota para a página que exibe o artigo completo
 def view(artid):
 
+    if not artid.isdigit():
+        return page_not_found(404)
+
     sql = '''
-    SELECT art_id, art_title, art_resume, art_thumbnail
+    SELECT art_id, art_date, art_title, art_content,
+        -- Obtém a data em PT-BR pelo pseudo-campo 'art_datebr'
+        DATE_FORMAT(art_date, '%%d/%%m/%%Y às %%H:%%i') AS art_datebr,
+        sta_id, sta_name, sta_image, sta_description, sta_type,
+        -- Calcula a idade para 'sta_age' considerando ano, mês e dia do nascimento
+        TIMESTAMPDIFF(YEAR, sta_birth, CURDATE()) -
+            (DATE_FORMAT(CURDATE(), '%%m%%d') < DATE_FORMAT(sta_birth, '%%m%%d')) AS sta_age
     FROM article
-    WHERE art_status = 'on'
-    AND art_date <= NOW()
-    ORDER BY art_id;
+    INNER JOIN staff ON art_author = sta_id
+    WHERE art_id = %s
+        AND art_status = 'on'
+        AND art_date <= NOW();
         '''
-    
+
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute(sql)
-    articles = cur.fetchall()
-    cur.close()
+    cur.execute(sql, (artid,))
+    article = cur.fetchone()
+
+# Para debug: print('\n\n\n', article, '\n\n\n')
+
+    if article is None:
+        return page_not_found(404)
+
+    sql = 'UPDATE article SET art_view = art_view + 1 WHERE art_id = %s'
+    cur.execute(sql, (artid,))
+    mysql.connection.commit()
 
     toPage = {
         'site': SITE,
-        'title': '',
-        'css': 'view.css'
+        'title': article['art_title'],
+        'css': 'view.css',
+        'article': article
     }
+    cur.close()
     return render_template('view.html', page=toPage)
 
 
@@ -116,6 +136,14 @@ def about():
 
     return render_template('about.html', page=toPage)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    toPage = {
+        'title': 'Erro 404',
+        'site': SITE,
+        'css': '404.css'
+    }
+    return render_template('404.html', page=toPage), 404
 
 
 if __name__ == '__main__':

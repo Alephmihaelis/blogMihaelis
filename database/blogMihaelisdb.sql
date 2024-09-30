@@ -27,7 +27,7 @@ CREATE TABLE staff (
     sta_birth DATE NOT NULL,
     sta_image VARCHAR(255),
     sta_description VARCHAR(255),
-    sta_type ENUM('moderator', 'author', 'admin') DEFAULT 'moderator',
+    sta_type ENUM('Moderator', 'Author', 'Admin') DEFAULT 'moderator',
     sta_status ENUM('on', 'off', 'del') DEFAULT 'on'
 );
 
