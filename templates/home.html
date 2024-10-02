@@ -1,26 +1,29 @@
 
+
 {% extends 'layout.html' %}
 
-<link rel="stylesheet" href="..\static\css\home.css">
+
 
 {% block article %}
 <h2>Artigos recentes</h2>
-
 <div class="article-grid">
     {% for article in page.articles %}
-
     <div class="article-box" onclick="location.href = '/view/' + {{ article['art_id'] }}">
-        <img src=" {{ article['art_thumbnail'] }}" alt=" {{ article['art_title'] }}">
+        <img src="{{ article['art_thumbnail'] }}" alt="{{ article['art_title'] }}">
         <div>
             <h4>{{ article['art_title'] }}</h4>
+            <small>{{ article['art_resume'] }}</small>
         </div>
-        <small>{{ article['art_resume'] }}</small>
     </div>
-
     {% endfor %}
-
 </div>
 {% endblock %}
 
+
+
+
 {% block aside %}
+<br>
+<h3>Meu aside</h3>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 {% endblock %}
