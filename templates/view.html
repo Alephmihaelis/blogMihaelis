@@ -13,8 +13,51 @@
 </div>
 {{ page.article['art_content'] | safe }}
 
-<div class="comment-form">    
+<div class="comment-form" id="comments">
+    
+    <h3>Comente!</h3>
+    <p class="required"><strong>Todos os campos devem ser preenchidos!</strong></p>
+
+    <form action="/comment" method="post">
+        <input type="hidden" name="artid" value="{{ page.article['art_id'] }}">
+
+        <div class="comment-field">
+            <label for="name">Nome: </label>
+            <input type="text" name="name" id="name" required minlength="3">
+        </div>
+
+        <div class="comment-field">
+            <label for="email">E-mail: </label>
+            <input type="email" name="email" id="email" required>
+        </div>
+
+        <textarea name="comment" required minlength="5"></textarea>
+        <div>
+            <button type="submit">Enviar</button>
+            <small>&larr; Clique somente uma vez</small>
+        </div>
+    </form>
 </div>
+
+{% if page.total_comments == 0 %}
+
+    <p class="no-comment">Não há nenhum comentário ainda?<br>Seja o primeiro a comentar!</p>
+
+{% else %}
+
+<div class="comment-list">
+    <h3>{{ page.total_comments }} Comentários recentes</h3>
+
+    <div class="comment-grid">
+        {% for comment in page.comments %}
+        <div class="comment-box">
+            <small>Por <strong>{{ comment.com_author_name }}</strong> em {{ comment.com_datebr }}</small>
+            <div>{{ comment.com_comment }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
 
@@ -55,6 +98,8 @@
     {% endfor %}
 
 </div>
-
 {% endif %}
+
+
+
 {% endblock %}

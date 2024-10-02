@@ -1,9 +1,10 @@
 # Importa as dependências do aplicativo
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, request, url_for
 from flask_mysqldb import MySQL, MySQLdb
 
 # Importa as funções do banco de dados, tabela articles
 from functions.db_articles import *
+from functions.db_comments import *
 
 # Constantes do site
 SITE = {
@@ -66,16 +67,33 @@ def view(artid):
     # Somente o primeiro nome do autor
     article['sta_first'] = article['sta_name'].split()[0]
 
-    print('\n\n\n', articles, '\n\n\n')
+    # Obtém todos os comentários deste artigo
+
+    comments = get_comments(mysql, article['art_id'])
+
+    # Total de comentários
+
+    total_comments = len(comments)
 
     toPage = {
         'site': SITE,
         'title': article['art_title'],
         'css': 'view.css',
         'article': article,
-        'articles': articles
+        'articles': articles,
+        'comments': comments,
+        'total_comments': total_comments
     }
     return render_template('view.html', page=toPage)
+
+@app.route('/comment', methods=['POST'])
+def comment():
+
+    # Obtém dados do formulário
+    form = request.form
+    # Salva comentário no banco de dados
+    save_comment(mysql, form)    
+    return redirect(f"{url_for('view', artid=form['artid'])}#comments")
 
 @app.route('/contacts')
 def contacts():
@@ -85,7 +103,6 @@ def contacts():
         'title': 'Faça contato',
         'css': 'home.css'
     }
-
     return render_template('contacts.html', page=toPage)
 
 
@@ -96,7 +113,6 @@ def about():
         'title': 'Sobre',
         'css': 'about.css'
     }
-
     return render_template('about.html', page=toPage)
 
 @app.errorhandler(404)
@@ -107,6 +123,10 @@ def page_not_found(e):
         'css': '404.css'
     }
     return render_template('404.html', page=toPage), 404
+
+@app.errorhandler(405)
+def page_not_found(e):
+    return 'Bizonhou!'
 
 
 if __name__ == '__main__':
