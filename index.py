@@ -4,7 +4,17 @@ from flask_mysqldb import MySQL, MySQLdb
 
 # Importa as funções do banco de dados, tabela articles
 from functions.db_articles import *
+from functions.db_articles import update_views
+from functions.db_articles import get_one
+from functions.db_articles import get_more
+from functions.db_articles import get_all
 from functions.db_comments import *
+from functions.db_comments import save_comment
+from functions.db_comments import get_comments
+from functions.db_contacts import save_contact
+
+# Envio de e-mails
+from flask_mail import Mail, Message
 
 # Constantes do site
 SITE = {
@@ -21,6 +31,16 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'mihablogdb'
+
+# Configurações do servidor de e-mail
+app.config['MAIL_SERVER'] = 'smtp-mail.outlook.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = 'Senha123456'
+
+# Objeto de envio de e-mails
+mail = Mail(app)
 
 mysql = MySQL(app)
 
@@ -92,16 +112,44 @@ def comment():
     # Obtém dados do formulário
     form = request.form
     # Salva comentário no banco de dados
-    save_comment(mysql, form)    
+    save_comment(mysql, form)
     return redirect(f"{url_for('view', artid=form['artid'])}#comments")
 
-@app.route('/contacts')
+@app.route('/contacts', methods=['GET', 'POST'])
 def contacts():
+
+    # Formulário enviado com sucesso
+    success = False
+
+    # Primeiro nome do remetente
+    first_name = ''
+
+    # Se o formulário foi enviado...
+    if request.method == 'POST':
+        # Obtém os dados do formulário
+        form = dict(request.form)
+        # Teste de mesa
+        # print('\n\n\n', form, '\n\n\n')
+        #     # Salva os dados no banco de dados
+        sucess = save_contact(mysql, form)
+        # Obtém o primeiro nome do remetente
+        first_name = form['name'].split()[0]
+
+        # Envia e-mail para o admin
+        msg = Message(
+            subject=form['subject'],
+            sender=app.config['MAIL_USERNAME'],
+                  recipients=app.config['MAIL_USERNAME'],
+                  body=f'Foi enviado um contato para MihaBlog: \n\n\n{form['message']}')
+        mail.send(msg)
+    return 'Email enviado com sucesso!'
 
     toPage = {
         'site': SITE,
         'title': 'Faça contato',
-        'css': 'home.css'
+        'css': 'contacts.css',
+        'success': success,
+        'first_name': first_name
     }
     return render_template('contacts.html', page=toPage)
 
