@@ -1,5 +1,9 @@
 /* Folhas de estilo de `view.html` */
 
+#commentForm, #makeLogin {
+    display: none;
+}
+
 .author-date {
     padding: .25rem;
     text-align: right;
@@ -146,4 +150,13 @@
 
 p {
     text-align: justify;
+}
+
+/* Botão de login */
+#loginGoogle {
+    background-color: steelblue;
+    display: block;
+    margin: auto;
+    pointer-events: all;
+    cursor: pointer;
 }

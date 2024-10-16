@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged((user) => {
       $('#btnUser').attr({
         'src': user.photoURL,
         'alt': user.displayName
-      })
+      });
     } else {
           // Troca a ação do botão para 'login'
           $('#btnUser').attr({'data-action': 'login'})
@@ -31,7 +31,7 @@ firebase.auth().onAuthStateChanged((user) => {
           $('#btnUser').attr({
             'src': 'static/img/user.png',
             'alt': 'Logue-se'
-          })
+          });
     }
   });
 
@@ -74,7 +74,11 @@ function userToggle() {
         // se for login, executa o login
         login()
     } else {
+
+        // Temporário: faz logout
+        logout();
+
         // Mostra o perfil do usuário
-        location.href ='/profile';
+        // location.href ='/profile';
     }
 }

@@ -14,33 +14,24 @@
 {{ page.article['art_content'] | safe }}
 
 <div class="comment-form" id="comments">
-    
-    <h3>Comente!</h3>
-    <p class="required"><strong>Todos os campos devem ser preenchidos!</strong></p>
 
-    <form action="/comment" method="post">
+    <form action="/comment" method="post" id="commentForm">
+        <h3>Comente!</h3>
+        <p class="required"><strong>Todos os campos devem ser preenchidos!</strong></p>
         <input type="hidden" name="artid" value="{{ page.article['art_id'] }}">
-
-        <div class="comment-field">
-            <label for="name">Nome</label>
-            <input type="text" name="name" id="name" required minlength="3">
-        </div>
-
-        <div class="comment-field">
-            <label for="email">E-mail</label>
-            <input type="email" name="email" id="email" required>
-        </div>
-
-        <div class="comment-field">
-        <label for="comment">Comentário</label>
-        <textarea name="comment" id="comment" required minlength="3"></textarea>
-        </div>
-
-        <div>
+        <input type="hidden" name="name" value="" id="commentName">
+        <input type="hidden" name="email" value="" id="commentEmail">
+        <textarea name="comment" id="comment" required minlength="5"></textarea>
             <button type="submit">Enviar</button>
             <small>&larr; Clique somente uma vez</small>
-        </div>
     </form>
+</div>
+
+<div id="makeLogin">
+    <p>Você precisa estar logado para comentar. Logue-se usando sua conta Google / G-Mail.</p>
+    <p class="btn-center">
+        <button id="loginGoogle" onclick="login()"><i class="fa-brands fa-google fa-fw"></i>Logue-se com o Google</button>
+    </p>
 </div>
 
 {% if page.total_comments == 0 %}

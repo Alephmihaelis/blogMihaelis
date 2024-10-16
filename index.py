@@ -94,6 +94,7 @@ def view(artid):
         'site': SITE,
         'title': article['art_title'],
         'css': 'view.css',
+        'js': 'view.js',
         'article': article,
         'articles': articles,
         'comments': comments,
@@ -105,9 +106,13 @@ def view(artid):
 def comment():
 
     # Obtém dados do formulário
-    form = request.form
-    # Salva comentário no banco de dados
-    save_comment(mysql, form)
+    form = dict(request.form)
+
+    # Se o form estiver vazio
+    if form['name'] != None and form['name'] != '' and form['email'] != None and form['email'] != '':
+        # Salva comentário no banco de dados
+        save_comment(mysql, form)
+
     return redirect(f"{url_for('view', artid=form['artid'])}#comments")
 
 @app.route('/contacts', methods=['GET', 'POST'])
@@ -134,6 +139,7 @@ def contacts():
         'site': SITE,
         'title': 'Faça contato',
         'css': 'contacts.css',
+        'js': 'contacts.js',
         'success': success,
         'first_name': first_name
     }
