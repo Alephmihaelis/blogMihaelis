@@ -13,8 +13,6 @@ from functions.db_comments import save_comment
 from functions.db_comments import get_comments
 from functions.db_contacts import save_contact
 
-# Envio de e-mails
-from flask_mail import Mail, Message
 
 # Constantes do site
 SITE = {
@@ -38,9 +36,6 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = ''
 app.config['MAIL_PASSWORD'] = 'Senha123456'
-
-# Objeto de envio de e-mails
-mail = Mail(app)
 
 mysql = MySQL(app)
 
@@ -134,15 +129,6 @@ def contacts():
         sucess = save_contact(mysql, form)
         # Obtém o primeiro nome do remetente
         first_name = form['name'].split()[0]
-
-        # Envia e-mail para o admin
-        msg = Message(
-            subject=form['subject'],
-            sender=app.config['MAIL_USERNAME'],
-                  recipients=app.config['MAIL_USERNAME'],
-                  body=f'Foi enviado um contato para MihaBlog: \n\n\n{form['message']}')
-        mail.send(msg)
-    return 'Email enviado com sucesso!'
 
     toPage = {
         'site': SITE,
