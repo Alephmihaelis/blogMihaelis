@@ -76,9 +76,9 @@ function userToggle() {
     } else {
 
         // Temporário: faz logout
-        logout();
+        // logout();
 
         // Mostra o perfil do usuário
-        // location.href ='/profile';
+        location.href ='/profile';
     }
 }

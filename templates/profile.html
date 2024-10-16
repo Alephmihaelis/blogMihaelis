@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block article %}
+
+<div id="logged">
+<br>
+    <img src="/static/img/user.png" alt="Usuário anônimo" width="100px" height="100px" referrerpolicy="no-referrer">
+    <h4>Usuário anônimo</h4>
+    <ul>
+        <li id="id">Sem ID</li>
+        <li id="email">anonimous@gmail.com</li>
+        <li id="registered">00/00/0000</li>
+        <li id="lastLogin">00/00/0000</li>
+    </ul>
+    <p>Sua conta é gerenciada pelo Google. Para editar seu perfil, clique no botão abaixo:</p>
+    <p class="center">
+        <button id="toGoogle"><i class="fa-brands fa-google fa-fw"></i>Ver perfil no Google</button>
+    </p>
+    <p>Clique no botão abaixo para sair do aplicativo neste computador:</p>
+    <p class="center">
+        <button id="btnLogout"><i class="fa-solid fa-right-from-bracket fa fw"></i>Logout / Sair</button>
+    </p>
+</div>
+
+
+<div id="unlogged">
+
+    <h2>Perfil de usuário</h2>
+    <p>Logue-se para ver seu perfil no {{ page.site.name }}.</p>
+    <p class="center">
+        <button id="btnLogin"><i class="fa-brands fa-google fa-fw"></i>Logue-se com o Google</button>
+    </p>
+</div>
+{% endblock %}
+
+{% block aside %}
+<h3>Saiba mais</h3>
+<p class="justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam reprehenderit dolor est molestiae porro ducimus repellendus! Modi ullam recusandae quas fugiat labore vitae tempora ducimus sit doloremque saepe aliquid atque perspiciatis, necessitatibus reiciendis asperiores, expedita obcaecati, aspernatur maiores quaerat ipsum maxime voluptatibus dolorum architecto! Deleniti ad veniam aliquid ipsam eos?</p>
+{% endblock %}

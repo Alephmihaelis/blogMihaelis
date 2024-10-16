@@ -155,6 +155,16 @@ def about():
     }
     return render_template('about.html', page=toPage)
 
+@app.route('/profile')
+def profile():
+    toPage = {
+        'site': SITE,
+        'title': 'Perfil do usuário',
+        'css': 'about.css',
+        'js': 'profile.js'
+    }
+    return render_template('profile.html', page=toPage)
+
 @app.errorhandler(404)
 def page_not_found(e):
     toPage = {
