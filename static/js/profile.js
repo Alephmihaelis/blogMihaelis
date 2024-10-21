@@ -8,8 +8,8 @@ firebase.auth().onAuthStateChanged((user) => {
             'alt': user.displayName
         })
         $('#logged h4').html(user.displayName),
-        $('#id').html('Seu ID: ' + user.uid),
-        $('#email').html('Seu e-mail: ' + user.email),
+        $('#id').html(user.uid),
+        $('#email').html(user.email),
         $('#registered').html('Cadastrado em: ' + dateConvert(user.metadata.creationTime)),
         $('#lastLogin').html('Último login em: ' + dateConvert(user.metadata.lastSignInTime));
         $('#unlogged').hide()

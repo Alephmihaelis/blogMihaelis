@@ -58,3 +58,30 @@ h2 {
     pointer-events: all;
     cursor: pointer;
 }
+
+.aside-social {
+    display: table;
+    margin: 0 auto 1rem auto;
+    list-style: none;
+    padding: 0;
+    line-height: 1.8;
+}
+
+.aside-social li {
+    display: flex;
+    align-items: center;
+    margin-bottom: .25rem;
+    padding: 3px;
+}
+
+.aside-social i {
+    font-size: 1.5rem;
+}
+h3 {
+    text-align: center;
+}
+.links-aside {
+    text-align: center;
+    list-style: none;
+    padding-left: 0.5rem;
+}

@@ -29,7 +29,8 @@
 
 .aside-author ul {
     font-size: small;
-    padding-left: 2rem;
+    padding-left: 1rem;
+    list-style: none;
 }
 
 @media screen and (min-width: 575px) {

@@ -34,7 +34,7 @@
             </div>
 
             <form action="/search" method="get">
-                <input type="search" name="q" placeholder="Procurar...">
+                <input type="search" name="q" placeholder="Procurar..." value="{{ page.query }}">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
 
@@ -63,7 +63,7 @@
             <div>
                 © 2024 {{ page.site.owner }}
                 <small>
-                    <a href="/contacts">Faça contato</a>&nbsp;|&nbsp;<a href="/privacy">Políticas de Privacidade</a>
+                    <a href="/contacts">Faça contato</a>&nbsp;|&nbsp;<a href="/policies">Políticas de Privacidade</a>
                 </small>
             </div>
             <a href="#wrap"><i class="fa-solid fa-circle-up fa-fw"></i></a>

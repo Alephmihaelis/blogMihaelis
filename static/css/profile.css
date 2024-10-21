@@ -1,4 +1,37 @@
 #logged,
-#unlogged {
+#notLogged {
     display: none;
+}
+
+#logged img {
+    display: block;
+    margin: 1rem auto 0 auto;
+    width: 100%;
+    max-width: 280px;
+}
+
+#logged small, #logged div {
+    display: block;
+    text-align: center;
+}
+
+#logged div {
+    font-weight: bold;
+    margin-bottom: .25rem;
+}
+
+#toGoogle, #btnLogout {
+font-size: inherit;
+font-family: inherit;
+color: white;
+border: none;
+padding: .5rem 1rem;
+}
+
+#toGoogle {
+    background-color: steelblue;
+}
+
+#btnLogout {
+    background-color: orangered;
 }

@@ -22,6 +22,32 @@ SITE = {
     'favicon': '/static/img/logo01.png'
 }
 
+# Lista de redes sociais
+
+SOCIALS = (
+    {
+        'name': 'Facebook',
+        'link': 'https://facebook.com/mihablog',
+        'icon': '<i class="fa-brands fa-square-facebook" fa-fw></i>'
+    },
+    {
+        'name': 'LinkedIn',
+        'link': 'https://linkedin.com/in/mihablog',
+        'icon': '<i class="fa-brands fa-linkedin" fa-fw></i>'
+    },
+    {
+        'name': 'YouTube',
+        'link': 'https://youtube.com/mihablog',
+        'icon': '<i class="fa-brands fa-youtube" fa-fw></i>'
+    },
+    {
+        'name': 'GitHub',
+        'link': 'github.com/Alephmihaelis',
+        'icon': '<i class="fa-brands fa-github" fa-fw></i>'
+    }
+)
+
+
 app = Flask(__name__)
 
 # Configurações de acesso ao MySQL
@@ -42,12 +68,18 @@ mysql = MySQL(app)
 @app.route('/')
 def home():
     articles = get_all(mysql)
+
+    commenteds = most_commented(mysql)
+    views = most_viewed(mysql, limit=4)
+
     toPage = {
         'site': SITE,
         'title': 'Página inicial',
         'css': 'home.css',
         'js': 'home.js',
-        'articles': articles
+        'articles': articles,
+        'commenteds': commenteds,
+        'views': views
     }
     return render_template('home.html', page=toPage)
 
@@ -137,11 +169,12 @@ def contacts():
 
     toPage = {
         'site': SITE,
+        'socials': SOCIALS,
         'title': 'Faça contato',
         'css': 'contacts.css',
         'js': 'contacts.js',
         'success': success,
-        'first_name': first_name
+        'first_name': first_name,
     }
     return render_template('contacts.html', page=toPage)
 
@@ -165,6 +198,15 @@ def profile():
     }
     return render_template('profile.html', page=toPage)
 
+@app.route('/policies')
+def privacy():
+    toPage = {
+        'site': SITE,
+        'css':'policies.css',
+        'title': 'Políticas de privacidade'
+    }
+    return render_template('policies.html', page=toPage)
+
 @app.errorhandler(404)
 def page_not_found(e):
     toPage = {
@@ -178,6 +220,31 @@ def page_not_found(e):
 def page_not_found(e):
     return 'Bizonhou!'
 
+@app.route('/search')
+def search():
+    #Obtém o termo a ser procurado
+    query = request.args.get('q')
+
+    #Obtém todos os artigos contendo o termo
+    articles = articles_search(mysql, query)
+
+    #Quantos resultados foram encontrados
+    total = len(articles)
+
+    #Artigos mais recentes para a aside
+    recents = get_all(mysql, 4)
+
+    toPage = {
+        'title': 'Busca',
+        'site': SITE,
+        'css': 'home.css',
+        'articles': articles,
+        'total': total,
+        'query': query,
+        'recentes': recents
+    }
+
+    return render_template('/search.html', page=toPage)
 
 if __name__ == '__main__':
     app.run(debug=True)
