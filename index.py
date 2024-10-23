@@ -4,9 +4,6 @@ from flask_mysqldb import MySQL, MySQLdb
 
 # Importa as funções do banco de dados, tabela articles
 from functions.db_articles import *
-from functions.db_articles import update_views
-from functions.db_articles import get_one
-from functions.db_articles import get_more
 from functions.db_comments import *
 from functions.db_contacts import *
 
@@ -186,6 +183,9 @@ def about():
 
 @app.route('/profile')
 def profile():
+
+    last_user_comments()
+
     toPage = {
         'site': SITE,
         'title': 'Perfil do usuário',
