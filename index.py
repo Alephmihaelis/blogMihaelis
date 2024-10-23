@@ -7,12 +7,8 @@ from functions.db_articles import *
 from functions.db_articles import update_views
 from functions.db_articles import get_one
 from functions.db_articles import get_more
-from functions.db_articles import get_all
 from functions.db_comments import *
-from functions.db_comments import save_comment
-from functions.db_comments import get_comments
-from functions.db_contacts import save_contact
-
+from functions.db_contacts import *
 
 # Constantes do site
 SITE = {
