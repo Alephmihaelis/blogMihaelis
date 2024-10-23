@@ -30,3 +30,21 @@ def get_comments(mysql, artid): # Obtém todos os comentários do artigo
     cur.close()
 
     return comments
+
+def last_user_comments(mysql, useremail, limit=4):
+    sql = '''
+        SELECT `com_id`,
+        `com_comment`
+        FROM comment
+        WHERE com_author_email = %s
+        AND `com_status` = 'on'
+        ORDER BY `com_date` DESC
+        LIMIT %s
+        '''
+    
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute(sql, (useremail, limit,))
+    comments = cur.fetchall()
+    cur.close()
+
+    return comments

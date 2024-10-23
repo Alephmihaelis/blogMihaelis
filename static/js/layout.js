@@ -82,3 +82,5 @@ function userToggle() {
         location.href ='/profile';
     }
 }
+
+// Cria um cookie
